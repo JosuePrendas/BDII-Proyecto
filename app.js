@@ -11,7 +11,19 @@ admin.initializeApp({
 
 var app = Express();
 
-Mongoose.connect("mongodb://localhost/thepolyglotdeveloper");
+//mongoose.Promise = global.Promise;
+var url = "mongodb://25.18.3.25:27017/people";
+Mongoose.connect(url, {
+  useNewUrlParser: true,
+})
+  .then(() => {
+    console.log("successfully connected to the database");
+  })
+  .catch((err) => {
+    console.log(`MongoDB connection error: ${err}`);
+    console.log("error connecting to the database");
+    process.exit();
+  });
 
 app.use(BodyParser.json());
 // Con bodyParser permitimos que pueda parsear JSON
@@ -75,15 +87,5 @@ app.listen(3000, () => {
   console.log("Escuchando desde el puerto 3000...");
 });
 
-admin
-  .auth()
-  .verifyIdToken(idToken)
-  .then(function (decodedToken) {
-    let uid = decodedToken.uid;
-    // ...
-  })
-  .catch(function (error) {
-    // Handle error
-  });
 // npm install nodemon --save-dev para autocargar cada vez que se
 // hace un cambio
