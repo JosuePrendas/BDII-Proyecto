@@ -1,6 +1,7 @@
 const Express = require("express");
 const Mongoose = require("mongoose");
 const BodyParser = require("body-parser");
+/*
 var admin = require("firebase-admin");
 var serviceAccount = require("./serviceAccountKey.json");
 
@@ -8,8 +9,60 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://bdproyecto-9d198.firebaseio.com",
 });
+*/
+
+/*
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.15.3/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/7.15.3/firebase-analytics.js"></script>
+*/
+// Your web app's Firebase configuration
+// Firebase App (the core Firebase SDK) is always required and
+// must be listed before other Firebase SDKs
+
+var firebase = require("firebase/app");
+
+// Add the Firebase products that you want to use
+require("firebase/auth");
+require("firebase/firestore");
+var firebaseConfig = {
+  apiKey: "AIzaSyDdKJ8L_G-rPt-Jaw5ckE-JH_JxZr1Lj0E",
+  authDomain: "bdproyecto-9d198.firebaseapp.com",
+  databaseURL: "https://bdproyecto-9d198.firebaseio.com",
+  projectId: "bdproyecto-9d198",
+  storageBucket: "bdproyecto-9d198.appspot.com",
+  messagingSenderId: "684750825916",
+  appId: "1:684750825916:web:1be948ed0a038d9f1423b9",
+  measurementId: "G-W49NKHCSPC"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+//firebase.analytics();
+
 
 var app = Express();
+
+app.get("/login/:email/:password", async (request, response, next) => {
+  try {
+    var email = request.params.email;
+    var password = request.params.password;
+    firebase.auth().signInWithEmailAndPassword(email, password);
+    response.send(true);
+  } catch (error) {
+    response.status(500).send(error);
+  }
+});
+
+firebase.auth().onAuthStateChanged(function(user){
+  if(user){
+    console.log(user.uid);
+    console.log(user.email);
+  }
+})
+
 
 //mongoose.Promise = global.Promise;
 var url = "mongodb://25.18.3.25:27017/people";
