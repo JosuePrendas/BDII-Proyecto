@@ -1,0 +1,33 @@
+***********************************************
+"Extensiones"
+
+material icon
+
+ES7 React/Redux/GraphQL/React-Native snippets
+
+Material Icon Theme
+***********************************************
+
+npm init -y
+
+npm i typescript -D
+
+npx tsc --init
+
+npm i express
+
+npm i @types/express -D
+
+npm i rimraf
+
+npm i nodemon -D
+
+npm i ts-node
+
+npm i morgan
+
+npm i @types/morgan -D
+
+npm i mongoose
+
+npm i @types/mongoose -D
